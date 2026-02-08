@@ -3,13 +3,19 @@ ____________________________________________________________
  What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
-added: borrow book
+ Got it. I've added this task:
+  [T][ ] borrow book
+ Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-added: read book
+ Got it. I've added this task:
+  [T][ ] read book
+ Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-added: return book /by 8th Feb
+ Got it. I've added this task:
+  [D][ ] return book (by: 8th Feb)
+ Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are your tasks:
@@ -18,7 +24,9 @@ Here are your tasks:
 3. [D][ ] return book (by: 8th Feb)
 ____________________________________________________________
 ____________________________________________________________
-added: group project meeting /from 9th Feb 4pm /to 5pm
+ Got it. I've added this task:
+  [E][ ] group project meeting (from: 9th Feb 4pm to: 5pm)
+ Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are your tasks:

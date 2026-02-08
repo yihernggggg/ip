@@ -34,8 +34,10 @@ public class TaskList {
     public void addToDo(String description) {
         if (taskCount < tasks.length) {
             tasks[taskCount] = new ToDo(description);
-            System.out.println("added: " + description);
+            System.out.println(" Got it. I've added this task:");
+            System.out.println("  " + tasks[taskCount].currentStatus());
             taskCount++;
+            System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
         } else {
             System.out.println("Task list is full! Cannot add more tasks.");
         }
@@ -45,8 +47,10 @@ public class TaskList {
         if (taskCount < tasks.length) {
             String[] parts = description.split(" /by ");
             tasks[taskCount] = new Deadline(parts[0], parts[1]);
-            System.out.println("added: " + description);
+            System.out.println(" Got it. I've added this task:");
+            System.out.println("  " + tasks[taskCount].currentStatus());
             taskCount++;
+            System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
         } else {
             System.out.println("Task list is full! Cannot add more tasks.");
         }
@@ -56,8 +60,10 @@ public class TaskList {
         if (taskCount < tasks.length) {
             String[] parts = description.split(" /from | /to ");
             tasks[taskCount] = new Event(parts[0], parts[1], parts[2]);
-            System.out.println("added: " + description);
+            System.out.println(" Got it. I've added this task:");
+            System.out.println("  " + tasks[taskCount].currentStatus());
             taskCount++;
+            System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
         } else {
             System.out.println("Task list is full! Cannot add more tasks.");
         }

@@ -1,6 +1,14 @@
 import java.util.Scanner;
 
 public class Flight {
+    private static final String logo = "___________.__  .__       .__     __   \n" +
+            "\\_   _____/|  | |__| ____ |  |___/  |_ \n" +
+            " |    __)  |  | |  |/ ___\\|  |  \\   __\\\n" +
+            " |     \\   |  |_|  / /_/  >   Y  \\  |  \n" +
+            " \\___  /   |____/__\\___  /|___|  /__|  \n" +
+            "     \\/           /_____/      \\/      ";
+
+    private static final String line = "____________________________________________________________";
 
     private static Command parseInput(String input) {
         input = input.trim();
@@ -11,22 +19,19 @@ public class Flight {
         return new Command(command, description);
     }
 
+    private static void printGreeting() {
+        System.out.println(line + "\n" + " Hello! I'm Flight\n" +
+                " What can I do for you?\n" + line);
+    }
+
+    private static void printGoodbye() {
+        System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println(line);
+    }
+
     public static void main(String[] args) {
-        String logo = "___________.__  .__       .__     __   \n" +
-                "\\_   _____/|  | |__| ____ |  |___/  |_ \n" +
-                " |    __)  |  | |  |/ ___\\|  |  \\   __\\\n" +
-                " |     \\   |  |_|  / /_/  >   Y  \\  |  \n" +
-                " \\___  /   |____/__\\___  /|___|  /__|  \n" +
-                "     \\/           /_____/      \\/      ";
 
-        String line = "____________________________________________________________";
-
-        String greeting = " Hello! I'm Flight\n" +
-                " What can I do for you?\n";
-
-        String goodbye = " Bye. Hope to see you again soon!";
-
-        System.out.println(line + "\n" + greeting + line);
+        printGreeting();
 
         Scanner scanner = new Scanner(System.in);
         TaskList tasks = new TaskList();
@@ -38,8 +43,7 @@ public class Flight {
 
             switch (command.commandType) {
             case "bye":
-                System.out.println(goodbye);
-                System.out.println(line);
+                printGoodbye();
                 scanner.close();
                 return;
 
