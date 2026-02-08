@@ -6,9 +6,9 @@ public class Flight {
         input = input.trim();
         String[] parts = input.split(" ", 2);
         String command = parts[0].toLowerCase();
-        String argument = parts.length > 1 ? parts[1] : "";
+        String description = parts.length > 1 ? parts[1] : "";
 
-        return new Command(command, argument);
+        return new Command(command, description);
     }
 
     public static void main(String[] args) {
@@ -24,7 +24,7 @@ public class Flight {
         String greeting = " Hello! I'm Flight\n" +
                 " What can I do for you?\n";
 
-        String goodBye = " Bye. Hope to see you again soon!";
+        String goodbye = " Bye. Hope to see you again soon!";
 
         System.out.println(line + "\n" + greeting + line);
 
@@ -38,7 +38,7 @@ public class Flight {
 
             switch (command.commandType) {
             case "bye":
-                System.out.println(goodBye);
+                System.out.println(goodbye);
                 System.out.println(line);
                 scanner.close();
                 return;
@@ -48,8 +48,8 @@ public class Flight {
                 break;
 
             case "mark":
-                if (Integer.parseInt(command.argument) > 0) {
-                    tasks.markTask(Integer.parseInt(command.argument) - 1);
+                if (Integer.parseInt(command.description) > 0) {
+                    tasks.markTask(Integer.parseInt(command.description) - 1);
                     tasks.displayTasks();
                 } else {
                     System.out.println("Invalid mark command. Use: mark <number>");
@@ -57,16 +57,27 @@ public class Flight {
                 break;
 
             case "unmark":
-                if (Integer.parseInt(command.argument) > 0) {
-                    tasks.unmarkTask(Integer.parseInt(command.argument) - 1);
+                if (Integer.parseInt(command.description) > 0) {
+                    tasks.unmarkTask(Integer.parseInt(command.description) - 1);
                     tasks.displayTasks();
                 } else {
                     System.out.println("Invalid unmark command. Use: unmark <number>");
                 }
                 break;
 
+            case "todo":
+                tasks.addToDo(command.description);
+                break;
+
+            case "deadline":
+                tasks.addDeadline(command.description);
+                break;
+
+            case "event":
+                tasks.addEvent(command.description);
+                break;
+
             default:
-                tasks.addTask(input);
                 break;
             }
             System.out.println(line);

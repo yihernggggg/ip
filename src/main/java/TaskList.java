@@ -31,9 +31,9 @@ public class TaskList {
         }
     }
 
-    public void addTask(String description) {
+    public void addToDo(String description) {
         if (taskCount < tasks.length) {
-            tasks[taskCount] = new Task(description);
+            tasks[taskCount] = new ToDo(description);
             System.out.println("added: " + description);
             taskCount++;
         } else {
@@ -41,4 +41,25 @@ public class TaskList {
         }
     }
 
+    public void addDeadline(String description) {
+        if (taskCount < tasks.length) {
+            String[] parts = description.split(" /by ");
+            tasks[taskCount] = new Deadline(parts[0], parts[1]);
+            System.out.println("added: " + description);
+            taskCount++;
+        } else {
+            System.out.println("Task list is full! Cannot add more tasks.");
+        }
+    }
+
+    public void addEvent(String description) {
+        if (taskCount < tasks.length) {
+            String[] parts = description.split(" /from | /to ");
+            tasks[taskCount] = new Event(parts[0], parts[1], parts[2]);
+            System.out.println("added: " + description);
+            taskCount++;
+        } else {
+            System.out.println("Task list is full! Cannot add more tasks.");
+        }
+    }
 }

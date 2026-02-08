@@ -1,9 +1,9 @@
 public class Command {
     String commandType;
-    String argument;
+    String description;
 
-    Command(String commandWord, String argument) {
+    Command(String commandWord, String description) {
         this.commandType = commandWord;
-        this.argument = argument;
+        this.description = description;
     }
 }
