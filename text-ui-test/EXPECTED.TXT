@@ -3,6 +3,19 @@ ____________________________________________________________
  What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
+Invalid command! Please refer to the commands below:
+  todo -- add a new todo task
+  deadline -- add a new task with deadline
+  event -- add a new task with a start and end time
+  list -- list all added tasks  mark -- mark a task as done
+  unmark -- unmark a task
+  bye -- close Flight
+____________________________________________________________
+____________________________________________________________
+  Invalid todo input! Please follow this format:
+  todo <description>
+____________________________________________________________
+____________________________________________________________
  Got it. I've added this task:
   [T][ ] borrow book
  Now you have 1 tasks in the list.
@@ -13,15 +26,31 @@ ____________________________________________________________
  Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
+  Invalid deadline input! Please follow this format:
+  deadline <description> /by <date or time>
+____________________________________________________________
+____________________________________________________________
+  Invalid deadline input! Please follow this format:
+  deadline <description> /by <date or time>
+____________________________________________________________
+____________________________________________________________
  Got it. I've added this task:
   [D][ ] return book (by: 8th Feb)
  Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Here are your tasks:
-1. [T][ ] borrow book
-2. [T][ ] read book
-3. [D][ ] return book (by: 8th Feb)
+ Here are your tasks:
+  1. [T][ ] borrow book
+  2. [T][ ] read book
+  3. [D][ ] return book (by: 8th Feb)
+____________________________________________________________
+____________________________________________________________
+  Invalid event input! Please follow this format:
+  event <description> /from <start time> /to <end time>
+____________________________________________________________
+____________________________________________________________
+  Invalid event input! Please follow this format:
+  event <description> /from <start time> /to <end time>
 ____________________________________________________________
 ____________________________________________________________
  Got it. I've added this task:
@@ -29,46 +58,53 @@ ____________________________________________________________
  Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Here are your tasks:
-1. [T][ ] borrow book
-2. [T][ ] read book
-3. [D][ ] return book (by: 8th Feb)
-4. [E][ ] group project meeting (from: 9th Feb 4pm to: 5pm)
+ Here are your tasks:
+  1. [T][ ] borrow book
+  2. [T][ ] read book
+  3. [D][ ] return book (by: 8th Feb)
+  4. [E][ ] group project meeting (from: 9th Feb 4pm to: 5pm)
 ____________________________________________________________
 ____________________________________________________________
-Here are your tasks:
-1. [T][X] borrow book
-2. [T][ ] read book
-3. [D][ ] return book (by: 8th Feb)
-4. [E][ ] group project meeting (from: 9th Feb 4pm to: 5pm)
+  Index provided is out of bounds!
+  There are currently only 4 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Here are your tasks:
-1. [T][X] borrow book
-2. [T][X] read book
-3. [D][ ] return book (by: 8th Feb)
-4. [E][ ] group project meeting (from: 9th Feb 4pm to: 5pm)
+  Invalid mark command. Use: mark <index>
 ____________________________________________________________
 ____________________________________________________________
-Here are your tasks:
-1. [T][X] borrow book
-2. [T][X] read book
-3. [D][ ] return book (by: 8th Feb)
-4. [E][ ] group project meeting (from: 9th Feb 4pm to: 5pm)
+ Here are your tasks:
+  1. [T][X] borrow book
+  2. [T][ ] read book
+  3. [D][ ] return book (by: 8th Feb)
+  4. [E][ ] group project meeting (from: 9th Feb 4pm to: 5pm)
 ____________________________________________________________
 ____________________________________________________________
-Here are your tasks:
-1. [T][ ] borrow book
-2. [T][X] read book
-3. [D][ ] return book (by: 8th Feb)
-4. [E][ ] group project meeting (from: 9th Feb 4pm to: 5pm)
+ Here are your tasks:
+  1. [T][X] borrow book
+  2. [T][X] read book
+  3. [D][ ] return book (by: 8th Feb)
+  4. [E][ ] group project meeting (from: 9th Feb 4pm to: 5pm)
 ____________________________________________________________
 ____________________________________________________________
-Here are your tasks:
-1. [T][ ] borrow book
-2. [T][X] read book
-3. [D][ ] return book (by: 8th Feb)
-4. [E][ ] group project meeting (from: 9th Feb 4pm to: 5pm)
+ Here are your tasks:
+  1. [T][X] borrow book
+  2. [T][X] read book
+  3. [D][ ] return book (by: 8th Feb)
+  4. [E][ ] group project meeting (from: 9th Feb 4pm to: 5pm)
+____________________________________________________________
+____________________________________________________________
+ Here are your tasks:
+  1. [T][ ] borrow book
+  2. [T][X] read book
+  3. [D][ ] return book (by: 8th Feb)
+  4. [E][ ] group project meeting (from: 9th Feb 4pm to: 5pm)
+____________________________________________________________
+____________________________________________________________
+ Here are your tasks:
+  1. [T][ ] borrow book
+  2. [T][X] read book
+  3. [D][ ] return book (by: 8th Feb)
+  4. [E][ ] group project meeting (from: 9th Feb 4pm to: 5pm)
 ____________________________________________________________
 ____________________________________________________________
  Bye. Hope to see you again soon!

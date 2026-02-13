@@ -1,9 +1,17 @@
+what
+todo
 todo borrow book
 todo read book
+deadline
+deadline return book
 deadline return book /by 8th Feb
 list
+event
+event group project meeting /from 9th Feb 4pm
 event group project meeting /from 9th Feb 4pm /to 5pm
 list
+mark 7
+mark mark
 mark 1
 mark 2
 list

@@ -52,21 +52,11 @@ public class Flight {
                 break;
 
             case "mark":
-                if (Integer.parseInt(command.description) > 0) {
-                    tasks.markTask(Integer.parseInt(command.description) - 1);
-                    tasks.displayTasks();
-                } else {
-                    System.out.println("Invalid mark command. Use: mark <number>");
-                }
+                tasks.markTask(command.description);
                 break;
 
             case "unmark":
-                if (Integer.parseInt(command.description) > 0) {
-                    tasks.unmarkTask(Integer.parseInt(command.description) - 1);
-                    tasks.displayTasks();
-                } else {
-                    System.out.println("Invalid unmark command. Use: unmark <number>");
-                }
+                    tasks.unmarkTask(command.description);
                 break;
 
             case "todo":
@@ -82,6 +72,7 @@ public class Flight {
                 break;
 
             default:
+                FlightException.FlightInvalidCommand();
                 break;
             }
             System.out.println(line);
