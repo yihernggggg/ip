@@ -1,4 +1,9 @@
+package ui;
+
 import java.util.Scanner;
+import command.Command;
+import command.CommandException;
+import task.TaskList;
 
 public class Flight {
     private static final String logo = "___________.__  .__       .__     __   \n" +
@@ -72,7 +77,7 @@ public class Flight {
                 break;
 
             default:
-                FlightException.FlightInvalidCommand();
+                CommandException.invalidCommand();
                 break;
             }
             System.out.println(line);

@@ -1,5 +1,7 @@
-public class FlightException {
-    public static void FlightInvalidCommand() {
+package command;
+
+public class CommandException {
+    public static void invalidCommand() {
         System.out.println("Invalid command! Please refer to the commands below:");
         System.out.println("  todo -- add a new todo task\n" +
                 "  deadline -- add a new task with deadline\n" +

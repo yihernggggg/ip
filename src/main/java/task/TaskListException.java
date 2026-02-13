@@ -1,3 +1,5 @@
+package task;
+
 public class TaskListException {
 
     public static void todoInvalidCommand() {
