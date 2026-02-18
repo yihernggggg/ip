@@ -1,6 +1,6 @@
 package task;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -20,6 +20,8 @@ public class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    public abstract String toFileString();
 
     public String currentStatus() {
         return "[" + getStatusIcon() + "] " + description;

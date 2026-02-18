@@ -1,6 +1,8 @@
 package task;
 
 import java.util.ArrayList;
+import storage.Storage;
+
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -11,7 +13,7 @@ public class TaskList {
         taskCount = 0;
     }
 
-    public void markTask(String description) {
+    public void markTask(String description, Storage storage) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
             System.out.println("  Invalid mark command. Use: mark <index>");
             return;
@@ -19,13 +21,14 @@ public class TaskList {
         int index = Integer.parseInt(description) - 1;
         if (index >= 0 && index < taskCount) {
             tasks.get(index).markAsDone();
+            storage.save(tasks, taskCount);
             displayTasks();
         } else {
             TaskListException.markTaskOutOfBounds(taskCount);
         }
     }
 
-    public void unmarkTask(String description) {
+    public void unmarkTask(String description, Storage storage) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
             System.out.println("  Invalid mark command. Use: mark <index>");
             return;
@@ -33,6 +36,7 @@ public class TaskList {
         int index = Integer.parseInt(description) - 1;
         if (index >= 0 && index < taskCount) {
             tasks.get(index).markAsNotDone();
+            storage.save(tasks, taskCount);
             displayTasks();
         } else {
             TaskListException.markTaskOutOfBounds(taskCount);
@@ -49,20 +53,22 @@ public class TaskList {
             }
         }
     }
-
-    public void addToDo(String description) {
+    
+    public void addToDo(String description, Storage storage) {
         if (description.trim().isEmpty()) {
             TaskListException.todoInvalidCommand();
             return;
         }
+        
         tasks.add(new ToDo(description));
         System.out.println(" Got it. I've added this task:");
         System.out.println("  " + tasks.get(taskCount).currentStatus());
         taskCount++;
+        storage.save(tasks, taskCount);
         System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
     }
-
-    public void addDeadline(String description) {
+    
+    public void addDeadline(String description, Storage storage) {
         String[] parts = description.split(" /by ");
         if (parts.length == 1) {
             TaskListException.deadlineInvalidCommand();
@@ -72,15 +78,17 @@ public class TaskList {
             TaskListException.deadlineInvalidCommand();
             return;
         }
+        
         tasks.add(new Deadline(parts[0], parts[1]));
         System.out.println(" Got it. I've added this task:");
         System.out.println("  " + tasks.get(taskCount).currentStatus());
         taskCount++;
+        storage.save(tasks, taskCount);
         System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
 
     }
-
-    public void addEvent(String description) {
+    
+    public void addEvent(String description, Storage storage) {
         String[] parts = description.split(" /from | /to ");
         if (parts.length < 3) {
             TaskListException.eventInvalidCommand();
@@ -90,10 +98,12 @@ public class TaskList {
             TaskListException.eventInvalidCommand();
             return;
         }
+        
         tasks.add(new Event(parts[0], parts[1], parts[2]));
         System.out.println(" Got it. I've added this task:");
         System.out.println("  " + tasks.get(taskCount).currentStatus());
         taskCount++;
+        storage.save(tasks, taskCount);
         System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
     }
 
@@ -108,5 +118,10 @@ public class TaskList {
         tasks.remove(index);
         taskCount--;
         System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
+    }
+
+    public void add(Task task) {
+        tasks.add(task);
+        taskCount++;
     }
 }

@@ -4,6 +4,7 @@ import java.util.Scanner;
 import command.Command;
 import command.CommandException;
 import task.TaskList;
+import storage.Storage;
 
 public class Flight {
     private static final String logo = "___________.__  .__       .__     __   \n" +
@@ -40,6 +41,9 @@ public class Flight {
 
         Scanner scanner = new Scanner(System.in);
         TaskList tasks = new TaskList();
+        Storage storage = new Storage("./data/flight.txt");
+        tasks = storage.load();
+        System.out.println(line);
 
         while (true) {
             String input = scanner.nextLine().trim();
@@ -57,23 +61,23 @@ public class Flight {
                 break;
 
             case "mark":
-                tasks.markTask(command.description);
+                tasks.markTask(command.description, storage);
                 break;
 
             case "unmark":
-                    tasks.unmarkTask(command.description);
+                    tasks.unmarkTask(command.description, storage);
                 break;
 
             case "todo":
-                tasks.addToDo(command.description);
+                tasks.addToDo(command.description, storage);
                 break;
 
             case "deadline":
-                tasks.addDeadline(command.description);
+                tasks.addDeadline(command.description, storage);
                 break;
 
             case "event":
-                tasks.addEvent(command.description);
+                tasks.addEvent(command.description, storage);
                 break;
 
             case "delete":
