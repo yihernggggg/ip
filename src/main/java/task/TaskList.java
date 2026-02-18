@@ -1,5 +1,7 @@
 package task;
 
+import storage.Storage;
+
 public class TaskList {
     private static final int MAX_TASKS = 100;
     private Task[] tasks;
@@ -10,7 +12,7 @@ public class TaskList {
         taskCount = 0;
     }
 
-    public void markTask(String description) {
+    public void markTask(String description, Storage storage) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
             System.out.println("  Invalid mark command. Use: mark <index>");
             return;
@@ -18,13 +20,14 @@ public class TaskList {
         int index = Integer.parseInt(description) - 1;
         if (index >= 0 && index < taskCount) {
             tasks[index].markAsDone();
+            storage.save(tasks, taskCount);
             displayTasks();
         } else {
             TaskListException.markTaskOutOfBounds(taskCount);
         }
     }
 
-    public void unmarkTask(String description) {
+    public void unmarkTask(String description, Storage storage) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
             System.out.println("  Invalid mark command. Use: mark <index>");
             return;
@@ -32,6 +35,7 @@ public class TaskList {
         int index = Integer.parseInt(description) - 1;
         if (index >= 0 && index < taskCount) {
             tasks[index].markAsNotDone();
+            storage.save(tasks, taskCount);
             displayTasks();
         } else {
             TaskListException.markTaskOutOfBounds(taskCount);
@@ -49,7 +53,7 @@ public class TaskList {
         }
     }
 
-    public void addToDo(String description) {
+    public void addToDo(String description, Storage storage) {
         if (taskCount < tasks.length) {
             if (description.trim().isEmpty()) {
                 TaskListException.todoInvalidCommand();
@@ -59,13 +63,14 @@ public class TaskList {
             System.out.println(" Got it. I've added this task:");
             System.out.println("  " + tasks[taskCount].currentStatus());
             taskCount++;
+            storage.save(tasks, taskCount);
             System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
         } else {
             System.out.println(" Task list is full! Cannot add more tasks.");
         }
     }
 
-    public void addDeadline(String description) {
+    public void addDeadline(String description, Storage storage) {
         if (taskCount < tasks.length) {
             String[] parts = description.split(" /by ");
             if (parts.length == 1) {
@@ -80,13 +85,14 @@ public class TaskList {
             System.out.println(" Got it. I've added this task:");
             System.out.println("  " + tasks[taskCount].currentStatus());
             taskCount++;
+            storage.save(tasks, taskCount);
             System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
         } else {
             System.out.println(" Task list is full! Cannot add more tasks.");
         }
     }
 
-    public void addEvent(String description) {
+    public void addEvent(String description, Storage storage) {
         if (taskCount < tasks.length) {
             String[] parts = description.split(" /from | /to ");
             if (parts.length < 3) {
@@ -101,9 +107,15 @@ public class TaskList {
             System.out.println(" Got it. I've added this task:");
             System.out.println("  " + tasks[taskCount].currentStatus());
             taskCount++;
+            storage.save(tasks, taskCount);
             System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
         } else {
             System.out.println(" Task list is full! Cannot add more tasks.");
         }
+    }
+
+    public void add(Task task) {
+        tasks[taskCount] = task;
+        taskCount++;
     }
 }
