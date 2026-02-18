@@ -76,6 +76,10 @@ public class Flight {
                 tasks.addEvent(command.description);
                 break;
 
+            case "delete":
+                tasks.deleteTask(command.description);
+                break;
+
             default:
                 CommandException.invalidCommand();
                 break;

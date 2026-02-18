@@ -1,12 +1,13 @@
 package task;
 
+import java.util.ArrayList;
+
 public class TaskList {
-    private static final int MAX_TASKS = 100;
-    private Task[] tasks;
+    private ArrayList<Task> tasks;
     private int taskCount;
 
     public TaskList() {
-        tasks = new Task[MAX_TASKS];
+        tasks = new ArrayList<>();
         taskCount = 0;
     }
 
@@ -17,7 +18,7 @@ public class TaskList {
         }
         int index = Integer.parseInt(description) - 1;
         if (index >= 0 && index < taskCount) {
-            tasks[index].markAsDone();
+            tasks.get(index).markAsDone();
             displayTasks();
         } else {
             TaskListException.markTaskOutOfBounds(taskCount);
@@ -31,7 +32,7 @@ public class TaskList {
         }
         int index = Integer.parseInt(description) - 1;
         if (index >= 0 && index < taskCount) {
-            tasks[index].markAsNotDone();
+            tasks.get(index).markAsNotDone();
             displayTasks();
         } else {
             TaskListException.markTaskOutOfBounds(taskCount);
@@ -44,66 +45,68 @@ public class TaskList {
         } else {
             System.out.println(" Here are your tasks:");
             for (int i = 0; i < taskCount; i++) {
-                System.out.println("  " + (i + 1) + ". " + tasks[i].currentStatus());
+                System.out.println("  " + (i + 1) + ". " + tasks.get(i).currentStatus());
             }
         }
     }
 
     public void addToDo(String description) {
-        if (taskCount < tasks.length) {
-            if (description.trim().isEmpty()) {
-                TaskListException.todoInvalidCommand();
-                return;
-            }
-            tasks[taskCount] = new ToDo(description);
-            System.out.println(" Got it. I've added this task:");
-            System.out.println("  " + tasks[taskCount].currentStatus());
-            taskCount++;
-            System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
-        } else {
-            System.out.println(" Task list is full! Cannot add more tasks.");
+        if (description.trim().isEmpty()) {
+            TaskListException.todoInvalidCommand();
+            return;
         }
+        tasks.add(new ToDo(description));
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("  " + tasks.get(taskCount).currentStatus());
+        taskCount++;
+        System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
     }
 
     public void addDeadline(String description) {
-        if (taskCount < tasks.length) {
-            String[] parts = description.split(" /by ");
-            if (parts.length == 1) {
-                TaskListException.deadlineInvalidCommand();
-                return;
-            }
-            if (parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-                TaskListException.deadlineInvalidCommand();
-                return;
-            }
-            tasks[taskCount] = new Deadline(parts[0], parts[1]);
-            System.out.println(" Got it. I've added this task:");
-            System.out.println("  " + tasks[taskCount].currentStatus());
-            taskCount++;
-            System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
-        } else {
-            System.out.println(" Task list is full! Cannot add more tasks.");
+        String[] parts = description.split(" /by ");
+        if (parts.length == 1) {
+            TaskListException.deadlineInvalidCommand();
+            return;
         }
+        if (parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+            TaskListException.deadlineInvalidCommand();
+            return;
+        }
+        tasks.add(new Deadline(parts[0], parts[1]));
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("  " + tasks.get(taskCount).currentStatus());
+        taskCount++;
+        System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
+
     }
 
     public void addEvent(String description) {
-        if (taskCount < tasks.length) {
-            String[] parts = description.split(" /from | /to ");
-            if (parts.length < 3) {
-                TaskListException.eventInvalidCommand();
-                return;
-            }
-            if (parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
-                TaskListException.eventInvalidCommand();
-                return;
-            }
-            tasks[taskCount] = new Event(parts[0], parts[1], parts[2]);
-            System.out.println(" Got it. I've added this task:");
-            System.out.println("  " + tasks[taskCount].currentStatus());
-            taskCount++;
-            System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
-        } else {
-            System.out.println(" Task list is full! Cannot add more tasks.");
+        String[] parts = description.split(" /from | /to ");
+        if (parts.length < 3) {
+            TaskListException.eventInvalidCommand();
+            return;
         }
+        if (parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
+            TaskListException.eventInvalidCommand();
+            return;
+        }
+        tasks.add(new Event(parts[0], parts[1], parts[2]));
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("  " + tasks.get(taskCount).currentStatus());
+        taskCount++;
+        System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
+    }
+
+    public void deleteTask(String description) {
+        if (description.trim().isEmpty() || !description.matches("\\d+")) {
+            System.out.println("  Invalid delete command. Use: delete <index>");
+            return;
+        }
+        int index = Integer.parseInt(description) - 1;
+        System.out.println(" Got it. I've removed this task:");
+        System.out.println("  " + tasks.get(index).currentStatus());
+        tasks.remove(index);
+        taskCount--;
+        System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
     }
 }
