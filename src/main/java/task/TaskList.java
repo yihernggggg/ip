@@ -107,7 +107,7 @@ public class TaskList {
         System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
     }
 
-    public void deleteTask(String description) {
+    public void deleteTask(String description, Storage storage) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
             System.out.println("  Invalid delete command. Use: delete <index>");
             return;
@@ -117,6 +117,7 @@ public class TaskList {
         System.out.println("  " + tasks.get(index).currentStatus());
         tasks.remove(index);
         taskCount--;
+        storage.save(tasks, taskCount);
         System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
     }
 

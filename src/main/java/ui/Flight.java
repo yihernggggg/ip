@@ -81,7 +81,7 @@ public class Flight {
                 break;
 
             case "delete":
-                tasks.deleteTask(command.description);
+                tasks.deleteTask(command.description, storage);
                 break;
 
             default:

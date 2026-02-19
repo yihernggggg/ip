@@ -1,3 +1,2 @@
 T | 0 | read
 T | 0 | buy bread
-E | 0 | group project meeting | 19th Feb 10pm | 19th Feb 11pm
