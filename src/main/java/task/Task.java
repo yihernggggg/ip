@@ -10,7 +10,7 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     public void markAsDone() {
@@ -19,6 +19,13 @@ public abstract class Task {
 
     public void markAsNotDone() {
         this.isDone = false;
+    }
+
+    public String getIsDone() {
+        if (isDone) {
+            return "1";
+        }
+        return "0";
     }
 
     public abstract String toFileString();

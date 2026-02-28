@@ -7,7 +7,7 @@ public class ToDo extends Task {
     }
 
     public String toFileString() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
+        return "T | " + getIsDone() + " | " + description;
     }
     @Override
     public String currentStatus() {
