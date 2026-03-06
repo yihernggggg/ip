@@ -6,8 +6,20 @@ import task.TaskList;
 import storage.Storage;
 import parser.Parser;
 
+/**
+ * Main entry point for the Flight chatbot application.
+ * Flight is a CLI task manager that supports creating, managing,
+ * and searching ToDo, Deadline, and Event tasks with file persistence.
+ */
 public class Flight {
 
+    /**
+     * Runs the main application loop.
+     * Initialises the UI, storage, and task list, then continuously reads
+     * and processes user commands until the "bye" command is received.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
 
         Ui ui = new Ui();
