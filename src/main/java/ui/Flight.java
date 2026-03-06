@@ -53,6 +53,10 @@ public class Flight {
                 tasks.deleteTask(command.description, storage, ui);
                 break;
 
+            case "on":
+                tasks.findTasksOnDate(command.description, ui);
+                break;
+
             default:
                 CommandException.invalidCommand(ui);
                 break;

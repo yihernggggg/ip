@@ -1,6 +1,2 @@
-T | 1 | read
-T | 0 | buy bread
-T | 0 | eat bread
-T | 1 | read again
-T | 0 | read again again
-T | 0 | read again again again
+D | 0 | read book | 2026-03-06 2300
+E | 0 | conference | 2024-12-01 | 2024-12-05

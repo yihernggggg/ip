@@ -1,8 +1,13 @@
 package ui;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import task.TaskList;
+import task.Task;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Ui {
 
@@ -43,9 +48,23 @@ public class Ui {
             System.out.println(" Your list is empty!");
         } else {
             System.out.println(" Here are your tasks:");
-            for (int i = 0; i < taskCount ; i++) {
+            for (int i = 0; i < taskCount; i++) {
                 System.out.println("  " + (i + 1) + ". " + tasks.getTask(i).currentStatus());
             }
+        }
+        System.out.println(LINE);
+    }
+
+    public void printTasksOnDate(ArrayList<Task> tasks, LocalDate date) {
+        System.out.println(LINE);
+        DateTimeFormatter displayFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        if (tasks.isEmpty()) {
+            System.out.println(" No tasks found on " + date.format(displayFormat));
+            return;
+        }
+        System.out.println(" Tasks on " + date.format(displayFormat) + ":");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("  " + (i + 1) + ". " + tasks.get(i).currentStatus());
         }
         System.out.println(LINE);
     }
@@ -55,7 +74,7 @@ public class Ui {
         System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
         System.out.println("  " + tasks.getTask(taskCount).currentStatus());
-        System.out.printf(" Now you have %d tasks in the list.\n", taskCount+1);
+        System.out.printf(" Now you have %d tasks in the list.\n", taskCount + 1);
         System.out.println(LINE);
     }
 
@@ -64,7 +83,7 @@ public class Ui {
         System.out.println(LINE);
         System.out.println(" Got it. I've removed this task:");
         System.out.println("  " + tasks.getTask(index).currentStatus());
-        System.out.printf(" Now you have %d tasks in the list.\n", taskCount-1);
+        System.out.printf(" Now you have %d tasks in the list.\n", taskCount - 1);
         System.out.println(LINE);
     }
 

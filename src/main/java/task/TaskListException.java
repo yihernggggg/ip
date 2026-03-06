@@ -27,6 +27,16 @@ public class TaskListException {
                             "  event <description> /from <start time> /to <end time>");
     }
 
+    public static void invalidDateTimeInput(Ui ui) {
+        ui.printException("  Invalid date format! Please follow the format:\n" +
+                            "  yyyy-MM-dd or yyyy-MM-dd HHmm");
+    }
+
+    public static void findTasksInvalidInput(Ui ui) {
+        ui.printException("  Invalid format! Please follow the format:\n" +
+                            "  on yyyy-MM-dd");
+    }
+
     public static void markTaskOutOfBounds(Ui ui, int taskCount) {
         String count = Integer.toString(taskCount);
         ui.printException("  Index provided is out of bounds!\n  There are currently only " + count + " tasks.\n");

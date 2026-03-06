@@ -1,6 +1,10 @@
 package task;
 
+import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.ArrayList;
+
 import storage.Storage;
 import ui.Ui;
 
@@ -20,6 +24,31 @@ public class TaskList {
 
     public Task getTask(int taskIndex) {
         return tasks.get(taskIndex);
+    }
+
+    public void findTasksOnDate(String description, Ui ui) {
+        try {
+            LocalDate date = LocalDate.parse(description.trim(),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            ArrayList<Task> result = new ArrayList<>();
+            for (Task task : tasks) {
+                if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    if (deadline.getBy().toLocalDate().equals(date)) {
+                        result.add(task);
+                    }
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    if (!date.isBefore(event.getFrom().toLocalDate())
+                            && !date.isAfter(event.getTo().toLocalDate())) {
+                        result.add(task);
+                    }
+                }
+            }
+            ui.printTasksOnDate(result, date);
+        } catch (DateTimeParseException e) {
+            TaskListException.findTasksInvalidInput(ui);
+        }
     }
 
     public void markTask(String description, Storage storage, Ui ui) {
@@ -51,19 +80,19 @@ public class TaskList {
             TaskListException.markTaskOutOfBounds(ui, taskCount);
         }
     }
-    
+
     public void addToDo(String description, Storage storage, Ui ui) {
         if (description.trim().isEmpty()) {
             TaskListException.todoInvalidCommand(ui);
             return;
         }
-        
+
         tasks.add(new ToDo(description));
         ui.printTaskAdded(this);
         taskCount++;
         storage.save(tasks, taskCount, ui);
     }
-    
+
     public void addDeadline(String description, Storage storage, Ui ui) {
         String[] parts = description.split(" /by ");
         if (parts.length == 1) {
@@ -74,13 +103,17 @@ public class TaskList {
             TaskListException.deadlineInvalidCommand(ui);
             return;
         }
-        
-        tasks.add(new Deadline(parts[0], parts[1]));
-        ui.printTaskAdded(this);
-        taskCount++;
-        storage.save(tasks, taskCount, ui);
+        try {
+            tasks.add(new Deadline(parts[0], parts[1]));
+            ui.printTaskAdded(this);
+            taskCount++;
+            storage.save(tasks, taskCount, ui);
+        } catch (DateTimeParseException e) {
+            TaskListException.invalidDateTimeInput(ui);
+        }
+
     }
-    
+
     public void addEvent(String description, Storage storage, Ui ui) {
         String[] parts = description.split(" /from | /to ");
         if (parts.length < 3) {
@@ -91,11 +124,15 @@ public class TaskList {
             TaskListException.eventInvalidCommand(ui);
             return;
         }
-        
-        tasks.add(new Event(parts[0], parts[1], parts[2]));
-        ui.printTaskAdded(this);
-        taskCount++;
-        storage.save(tasks, taskCount, ui);
+        try {
+            tasks.add(new Event(parts[0], parts[1], parts[2]));
+            ui.printTaskAdded(this);
+            taskCount++;
+            storage.save(tasks, taskCount, ui);
+        } catch (DateTimeParseException e) {
+            TaskListException.invalidDateTimeInput(ui);
+        }
+
     }
 
     public void deleteTask(String description, Storage storage, Ui ui) {

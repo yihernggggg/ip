@@ -48,11 +48,18 @@ public class Storage {
                     tasks.add(task);
                 }
             }
-            ui.printLoadComplete();
             scanner.close();
         } catch (FileNotFoundException e) {
             ui.printNoTaskLoaded();
+            return tasks;
         }
+
+        if (tasks.getTaskCount() == 0) {
+            ui.printNoTaskLoaded();
+        } else {
+            ui.printLoadComplete();
+        }
+
         return tasks;
     }
 
