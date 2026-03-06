@@ -73,6 +73,10 @@ public class Flight {
                 tasks.findTasksWithKeyword(command.description, ui);
                 break;
 
+            case "help":
+                ui.printHelp();
+                break;
+                
             default:
                 CommandException.invalidCommand(ui);
                 break;

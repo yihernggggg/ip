@@ -1,38 +1,26 @@
 # Flight User Guide
 
-Flight is a command-line chatbot to help users manage their tasks efficiently.
-It helps keep track of Todo, Deadline and Event tasks and supports persistent storage,
-where tasks are automatically saved and loaded when the user starts the program.
+Flight is a lightweight CLI task manager written in Java. It supports three task types, namely Todos, Deadlines, and Events, with automatic file persistence so your data survives between sessions.
 
-## Quick Start
-1. Ensure Java is installed (JDK 17).
-2. Download the latest release from the [releases page](https://github.com/YOUR_USERNAME/ip/releases).
-3. Open a terminal and navigate to the jar location.
-4. Run the program with:
+## Getting Started
+1. Make sure you have JDK 17 installed.
+2. Grab the latest JAR from the [releases page](https://github.com/YOUR_USERNAME/ip/releases).
+3. Open a terminal, navigate to where the JAR is located, and run:
    ```
    java -jar ip.jar
    ```
-5. Start interacting with Flight.
-6. Look at [Features](#features) for the commands supported.
+4. You're ready to go! See [Features](#features) below for what Flight can do.
 
 ## Features
 
-### Add Todo
+### Adding a Todo
 
-Adds a simple todo task.
+Creates a basic task with no date attached.
 
-Command:
-```
-todo DESCRIPTION
-```
+**Usage:** `todo DESCRIPTION`
 
-Example:
 ```
-todo read book
-```
-
-Expected Output:
-```
+> todo read book
 ____________________________________________________________
  Got it. I've added this task:
   [T][ ] read book
@@ -40,23 +28,15 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### Add Deadline
+### Adding a Deadline
 
-Adds a deadline task that must be completed before a specific date/time.
-Supported date formats are described in [Date Format](#date-format).
+Creates a task with a due date. You can optionally include a time.
+See [Date Format](#date-format) for accepted formats.
 
-Command:
-```
-deadline DESCRIPTION /by DATE
-```
+**Usage:** `deadline DESCRIPTION /by DATE`
 
-Example:
 ```
-deadline return book /by 2025-03-06
-```
-
-Expected Output:
-```
+> deadline return book /by 2025-03-06
 ____________________________________________________________
  Got it. I've added this task:
   [D][ ] return book (by: Mar 06 2025)
@@ -64,13 +44,9 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-Example with time:
+With a time component:
 ```
-deadline submit report /by 2025-03-06 1800
-```
-
-Expected Output:
-```
+> deadline submit report /by 2025-03-06 1800
 ____________________________________________________________
  Got it. I've added this task:
   [D][ ] submit report (by: Mar 06 2025 6:00PM)
@@ -78,23 +54,15 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### Add Event
+### Adding an Event
 
-Adds an event task that happens during a specific time period.
-Supported date formats are described in [Date Format](#date-format).
+Creates a task that spans a time period, defined by a start and end date/time.
+See [Date Format](#date-format) for accepted formats.
 
-Command:
-```
-event DESCRIPTION /from DATE /to DATE
-```
+**Usage:** `event DESCRIPTION /from DATE /to DATE`
 
-Example:
 ```
-event group meeting /from 2025-03-06 1400 /to 2025-03-06 1600
-```
-
-Expected Output:
-```
+> event group meeting /from 2025-03-06 1400 /to 2025-03-06 1600
 ____________________________________________________________
  Got it. I've added this task:
   [E][ ] group meeting (from: Mar 06 2025 2:00PM to: Mar 06 2025 4:00PM)
@@ -102,17 +70,14 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### List Tasks
+### Listing All Tasks
 
-Lists all the tasks in the current list.
+Shows every task currently in your list.
 
-Command:
-```
-list
-```
+**Usage:** `list`
 
-Expected Output:
 ```
+> list
 ____________________________________________________________
  Here are your tasks:
   1. [T][ ] read book
@@ -122,22 +87,14 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### Mark Task
+### Marking a Task as Done
 
-Marks a task as completed.
+Toggles a task's status to completed.
 
-Command:
-```
-mark INDEX
-```
+**Usage:** `mark INDEX`
 
-Example:
 ```
-mark 1
-```
-
-Expected Output:
-```
+> mark 1
 ____________________________________________________________
  Here are your tasks:
   1. [T][X] read book
@@ -147,22 +104,14 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### Unmark Task
+### Unmarking a Task
 
-Marks a task as not completed.
+Reverts a task's status back to not done.
 
-Command:
-```
-unmark INDEX
-```
+**Usage:** `unmark INDEX`
 
-Example:
 ```
-unmark 1
-```
-
-Expected Output:
-```
+> unmark 1
 ____________________________________________________________
  Here are your tasks:
   1. [T][ ] read book
@@ -172,22 +121,14 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### Delete Task
+### Deleting a Task
 
-Deletes a task from the task list.
+Removes a task from the list permanently.
 
-Command:
-```
-delete INDEX
-```
+**Usage:** `delete INDEX`
 
-Example:
 ```
-delete 1
-```
-
-Expected Output:
-```
+> delete 1
 ____________________________________________________________
  Got it. I've removed this task:
   [T][ ] read book
@@ -195,46 +136,28 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### Find Task by Keyword
+### Finding Tasks by Keyword
 
-Finds tasks whose descriptions contain the given keyword. The search is case-insensitive.
+Searches all task descriptions for a keyword match. The search is case-insensitive.
 
-Command:
-```
-find KEYWORD
-```
+**Usage:** `find KEYWORD`
 
-Example:
 ```
-find book
-```
-
-Expected Output:
-```
+> find book
 ____________________________________________________________
  Here are the matching tasks in your list:
   1. [D][ ] return book (by: Mar 06 2025)
 ____________________________________________________________
 ```
 
-### Find Tasks on Date
+### Finding Tasks on a Date
 
-Finds all deadlines and events that fall on a specific date.
-For deadlines, the date must match the due date.
-For events, the date must fall within the event's start and end range.
+Retrieves all deadlines due on the given date, and all events whose date range includes it.
 
-Command:
-```
-on DATE
-```
+**Usage:** `on DATE`
 
-Example:
 ```
-on 2025-03-06
-```
-
-Expected Output:
-```
+> on 2025-03-06
 ____________________________________________________________
  Tasks on Mar 06 2025:
   1. [D][ ] return book (by: Mar 06 2025)
@@ -243,17 +166,14 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### Exit Program
+### Exiting Flight
 
-Exits the program.
+Saves all tasks and closes the application.
 
-Command:
-```
-bye
-```
+**Usage:** `bye`
 
-Expected Output:
 ```
+> bye
 ____________________________________________________________
  Bye. Hope to see you again soon!
 ____________________________________________________________
@@ -261,33 +181,32 @@ ____________________________________________________________
 
 ## Date Format
 
-### Supported Input Formats
+### Input
 
-Dates and times can be entered in the following formats:
+Flight accepts the following date formats:
 
-Date and Time:
-- `yyyy-MM-dd HHmm` (e.g., `2025-03-06 1800`)
+| Format | Example | Description |
+|---|---|---|
+| `yyyy-MM-dd` | `2025-03-06` | Date only |
+| `yyyy-MM-dd HHmm` | `2025-03-06 1800` | Date with 24-hour time |
 
-Date Only:
-- `yyyy-MM-dd` (e.g., `2025-03-06`)
+### Display
 
-### Output Format
-
-Dates and times are displayed in the following formats:
-- Date only: `MMM dd yyyy` (e.g., Mar 06 2025)
-- Date and time: `MMM dd yyyy h:mma` (e.g., Mar 06 2025 6:00PM)
+Flight renders dates in a more readable format:
+- Without time: `Mar 06 2025`
+- With time: `Mar 06 2025 6:00PM`
 
 ## Command Summary
 
-| Command          | Format                                  | Example                                                    |
-|------------------|-----------------------------------------|------------------------------------------------------------|
-| Add Todo         | `todo DESCRIPTION`                      | `todo read book`                                           |
-| Add Deadline     | `deadline DESCRIPTION /by DATE`         | `deadline return book /by 2025-03-06`                      |
-| Add Event        | `event DESCRIPTION /from DATE /to DATE` | `event meeting /from 2025-03-06 1400 /to 2025-03-06 1600` |
-| List Tasks       | `list`                                  | `list`                                                     |
-| Mark Task        | `mark INDEX`                            | `mark 1`                                                   |
-| Unmark Task      | `unmark INDEX`                          | `unmark 1`                                                 |
-| Delete Task      | `delete INDEX`                          | `delete 1`                                                 |
-| Find by Keyword  | `find KEYWORD`                          | `find book`                                                |
-| Find by Date     | `on DATE`                               | `on 2025-03-06`                                            |
-| Exit Program     | `bye`                                   | `bye`                                                      |
+| Command | Format | Example |
+|---|---|---|
+| Todo | `todo <desc>` | `todo read book` |
+| Deadline | `deadline <desc> /by <date>` | `deadline essay /by 2025-03-06` |
+| Event | `event <desc> /from <date> /to <date>` | `event meeting /from 2025-03-06 1400 /to 2025-03-06 1600` |
+| List | `list` | `list` |
+| Mark | `mark <index>` | `mark 1` |
+| Unmark | `unmark <index>` | `unmark 1` |
+| Delete | `delete <index>` | `delete 1` |
+| Find | `find <keyword>` | `find book` |
+| Date search | `on <date>` | `on 2025-03-06` |
+| Exit | `bye` | `bye` |

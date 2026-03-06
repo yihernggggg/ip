@@ -9,8 +9,11 @@ Invalid command! Please refer to the commands below:
   todo -- add a new todo task
   deadline -- add a new task with deadline
   event -- add a new task with a start and end time
-  list -- list all added tasks  mark -- mark a task as done
+  list -- list all added tasks
+  mark -- mark a task as done
   unmark -- unmark a task
+  on -- search all tasks on a given date
+  find -- find a task with a keyword
   bye -- close Flight
 ____________________________________________________________
 ____________________________________________________________
@@ -132,6 +135,7 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
  No tasks found on Dec 25 2025
+____________________________________________________________
 ____________________________________________________________
   Invalid format! Please follow this format:
   on yyyy-MM-dd

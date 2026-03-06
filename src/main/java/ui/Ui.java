@@ -57,6 +57,24 @@ public class Ui {
     }
 
     /**
+     * Displays the available commands.
+     */
+    public void printHelp() {
+        System.out.println(LINE);
+        System.out.println("Please refer to the commands below:\n" +
+                "  todo -- add a new todo task\n" +
+                "  deadline -- add a new task with deadline\n" +
+                "  event -- add a new task with a start and end time\n" +
+                "  list -- list all added tasks\n" +
+                "  mark -- mark a task as done\n" +
+                "  unmark -- unmark a task\n" +
+                "  on -- search all tasks on a given date\n" +
+                "  find -- find a task with a keyword\n" +
+                "  bye -- close Flight");
+        System.out.println(LINE);
+    }
+
+    /**
      * Displays an exception message.
      *
      * @param message The exception message to display.
@@ -99,6 +117,7 @@ public class Ui {
         DateTimeFormatter displayFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
         if (tasks.isEmpty()) {
             System.out.println(" No tasks found on " + date.format(displayFormat));
+            System.out.println(LINE);
             return;
         }
         System.out.println(" Tasks on " + date.format(displayFormat) + ":");

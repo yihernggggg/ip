@@ -20,9 +20,11 @@ public class CommandException {
                 "  todo -- add a new todo task\n" +
                 "  deadline -- add a new task with deadline\n" +
                 "  event -- add a new task with a start and end time\n" +
-                "  list -- list all added tasks" +
+                "  list -- list all added tasks\n" +
                 "  mark -- mark a task as done\n" +
                 "  unmark -- unmark a task\n" +
+                "  on -- search all tasks on a given date\n" +
+                "  find -- find a task with a keyword\n" +
                 "  bye -- close Flight");
     }
 }
