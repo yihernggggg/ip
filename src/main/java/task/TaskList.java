@@ -47,8 +47,22 @@ public class TaskList {
             }
             ui.printTasksOnDate(result, date);
         } catch (DateTimeParseException e) {
-            TaskListException.findTasksInvalidInput(ui);
+            TaskListException.onDateInvalidInput(ui);
         }
+    }
+
+    public void findTasksWithKeyword(String keyword, Ui ui) {
+        if (keyword.trim().isEmpty()) {
+            TaskListException.withKeywordInvalidInput(ui);
+            return;
+        }
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                result.add(task);
+            }
+        }
+        ui.printTasksWithKeyword(result);
     }
 
     public void markTask(String description, Storage storage, Ui ui) {

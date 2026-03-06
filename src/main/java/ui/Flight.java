@@ -57,6 +57,10 @@ public class Flight {
                 tasks.findTasksOnDate(command.description, ui);
                 break;
 
+            case "find":
+                tasks.findTasksWithKeyword(command.description, ui);
+                break;
+
             default:
                 CommandException.invalidCommand(ui);
                 break;

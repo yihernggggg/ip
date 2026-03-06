@@ -28,13 +28,18 @@ public class TaskListException {
     }
 
     public static void invalidDateTimeInput(Ui ui) {
-        ui.printException("  Invalid date format! Please follow the format:\n" +
+        ui.printException("  Invalid date format! Please follow this format:\n" +
                             "  yyyy-MM-dd or yyyy-MM-dd HHmm");
     }
 
-    public static void findTasksInvalidInput(Ui ui) {
-        ui.printException("  Invalid format! Please follow the format:\n" +
+    public static void onDateInvalidInput(Ui ui) {
+        ui.printException("  Invalid format! Please follow this format:\n" +
                             "  on yyyy-MM-dd");
+    }
+
+    public static void withKeywordInvalidInput(Ui ui) {
+        ui.printException("  Invalid find command! Please follow this format:\n" +
+                            "  find <keyword>");
     }
 
     public static void markTaskOutOfBounds(Ui ui, int taskCount) {
