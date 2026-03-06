@@ -30,8 +30,8 @@ public class Event extends Task {
      * to {@code yyyy-MM-dd} if no time component is present.
      *
      * @param description The description of the event.
-     * @param from        The start date/time string.
-     * @param to          The end date/time string.
+     * @param from The start date/time string.
+     * @param to The end date/time string.
      * @throws DateTimeParseException If either date string cannot be parsed in either format.
      */
     public Event(String description, String from, String to) {

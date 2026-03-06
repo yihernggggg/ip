@@ -38,7 +38,7 @@ public class Ui {
     }
 
     /**
-     * Displays the welcome greeting with the Flight logo.
+     * Displays the welcome greeting.
      */
     public void printGreeting() {
         System.out.println(LINE
@@ -57,9 +57,9 @@ public class Ui {
     }
 
     /**
-     * Displays an exception or error message between separator lines.
+     * Displays an exception message.
      *
-     * @param message The error message to display.
+     * @param message The exception message to display.
      */
     public void printException(String message) {
         System.out.println(LINE);

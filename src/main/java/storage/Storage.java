@@ -35,9 +35,9 @@ public class Storage {
      * Each task is written in its file string format, one per line.
      * Creates parent directories if they do not exist.
      *
-     * @param tasks     The list of tasks to save.
+     * @param tasks The list of tasks to save.
      * @param taskCount The number of tasks to save.
-     * @param ui        The UI instance used to display error messages if saving fails.
+     * @param ui The UI instance used to display error messages if saving fails.
      */
     public void save(ArrayList<Task> tasks, int taskCount, Ui ui) {
         try {
@@ -94,7 +94,7 @@ public class Storage {
      * The line is expected to be in pipe-delimited format
      *
      * @param line The line to parse.
-     * @param ui   The UI instance used to display error messages for corrupted lines.
+     * @param ui The UI instance used to display error messages for corrupted lines.
      * @return The parsed {@link Task}, or {@code null} if the line is corrupted.
      */
     private Task parseLine(String line, Ui ui) {

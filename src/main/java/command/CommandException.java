@@ -4,7 +4,7 @@ import ui.Ui;
 
 /**
  * Handles exceptions related to invalid user commands.
- * Provides static methods to display error messages when the user
+ * Provides a static method to display error messages when the user
  * enters an unrecognised command.
  */
 public class CommandException {

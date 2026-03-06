@@ -90,7 +90,7 @@ public class TaskListException {
     /**
      * Displays an error message when the provided task index is out of bounds.
      *
-     * @param ui        The UI instance used to display the error message.
+     * @param ui The UI instance used to display the error message.
      * @param taskCount The current number of tasks in the list.
      */
     public static void markTaskOutOfBounds(Ui ui, int taskCount) {

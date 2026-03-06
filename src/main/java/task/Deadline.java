@@ -28,7 +28,7 @@ public class Deadline extends Task {
      * back to {@code yyyy-MM-dd}.
      *
      * @param description The description of the task.
-     * @param by          The deadline string in {@code yyyy-MM-dd} or {@code yyyy-MM-dd HHmm} format.
+     * @param by The deadline string in {@code yyyy-MM-dd} or {@code yyyy-MM-dd HHmm} format.
      * @throws DateTimeParseException If the deadline string cannot be parsed in either format.
      */
     public Deadline(String description, String by) {

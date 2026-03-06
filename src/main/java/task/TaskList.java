@@ -49,7 +49,7 @@ public class TaskList {
      * For {@link Event} tasks, checks if the date falls within the event's date range (inclusive).
      *
      * @param description The date string in {@code yyyy-MM-dd} format.
-     * @param ui          The UI instance used to display results or error messages.
+     * @param ui The UI instance used to display results or error messages.
      */
     public void findTasksOnDate(String description, Ui ui) {
         try {
@@ -81,7 +81,7 @@ public class TaskList {
      * The search is case-insensitive.
      *
      * @param keyword The keyword to search for.
-     * @param ui      The UI instance used to display results or error messages.
+     * @param ui The UI instance used to display results or error messages.
      */
     public void findTasksWithKeyword(String keyword, Ui ui) {
         if (keyword.trim().isEmpty()) {
@@ -102,8 +102,8 @@ public class TaskList {
      * Validates that the description is a valid numeric index within bounds.
      *
      * @param description The one-based index of the task to mark, as a string.
-     * @param storage     The storage instance used to save the updated task list.
-     * @param ui          The UI instance used to display the updated list or error messages.
+     * @param storage The storage instance used to save the updated task list.
+     * @param ui The UI instance used to display the updated list or error messages.
      */
     public void markTask(String description, Storage storage, Ui ui) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
@@ -125,8 +125,8 @@ public class TaskList {
      * Validates that the description is a valid numeric index within bounds.
      *
      * @param description The one-based index of the task to unmark, as a string.
-     * @param storage     The storage instance used to save the updated task list.
-     * @param ui          The UI instance used to display the updated list or error messages.
+     * @param storage The storage instance used to save the updated task list.
+     * @param ui The UI instance used to display the updated list or error messages.
      */
     public void unmarkTask(String description, Storage storage, Ui ui) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
@@ -148,8 +148,8 @@ public class TaskList {
      * Validates that the description is not empty.
      *
      * @param description The description of the ToDo task.
-     * @param storage     The storage instance used to save the updated task list.
-     * @param ui          The UI instance used to display confirmation or error messages.
+     * @param storage The storage instance used to save the updated task list.
+     * @param ui The UI instance used to display confirmation or error messages.
      */
     public void addToDo(String description, Storage storage, Ui ui) {
         if (description.trim().isEmpty()) {
@@ -169,8 +169,8 @@ public class TaskList {
      * Validates the format and date before adding.
      *
      * @param description The full description containing the task and {@code /by} date.
-     * @param storage     The storage instance used to save the updated task list.
-     * @param ui          The UI instance used to display confirmation or error messages.
+     * @param storage The storage instance used to save the updated task list.
+     * @param ui The UI instance used to display confirmation or error messages.
      */
     public void addDeadline(String description, Storage storage, Ui ui) {
         String[] parts = description.split(" /by ");
@@ -198,8 +198,8 @@ public class TaskList {
      * Validates the format and dates before adding.
      *
      * @param description The full description containing the task, {@code /from}, and {@code /to} dates.
-     * @param storage     The storage instance used to save the updated task list.
-     * @param ui          The UI instance used to display confirmation or error messages.
+     * @param storage The storage instance used to save the updated task list.
+     * @param ui The UI instance used to display confirmation or error messages.
      */
     public void addEvent(String description, Storage storage, Ui ui) {
         String[] parts = description.split(" /from | /to ");
@@ -226,8 +226,8 @@ public class TaskList {
      * Validates that the description is a valid numeric index.
      *
      * @param description The one-based index of the task to delete, as a string.
-     * @param storage     The storage instance used to save the updated task list.
-     * @param ui          The UI instance used to display confirmation or error messages.
+     * @param storage The storage instance used to save the updated task list.
+     * @param ui The UI instance used to display confirmation or error messages.
      */
     public void deleteTask(String description, Storage storage, Ui ui) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
