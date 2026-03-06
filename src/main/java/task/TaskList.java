@@ -2,6 +2,7 @@ package task;
 
 import java.util.ArrayList;
 import storage.Storage;
+import ui.Ui;
 
 
 public class TaskList {
@@ -13,112 +14,100 @@ public class TaskList {
         taskCount = 0;
     }
 
-    public void markTask(String description, Storage storage) {
+    public int getTaskCount() {
+        return taskCount;
+    }
+
+    public Task getTask(int taskIndex) {
+        return tasks.get(taskIndex);
+    }
+
+    public void markTask(String description, Storage storage, Ui ui) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
-            System.out.println("  Invalid mark command. Use: mark <index>");
+            TaskListException.invalidMark(ui);
             return;
         }
         int index = Integer.parseInt(description) - 1;
         if (index >= 0 && index < taskCount) {
             tasks.get(index).markAsDone();
-            storage.save(tasks, taskCount);
-            displayTasks();
+            storage.save(tasks, taskCount, ui);
+            ui.printTaskList(this);
         } else {
-            TaskListException.markTaskOutOfBounds(taskCount);
+            TaskListException.markTaskOutOfBounds(ui, taskCount);
         }
     }
 
-    public void unmarkTask(String description, Storage storage) {
+    public void unmarkTask(String description, Storage storage, Ui ui) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
-            System.out.println("  Invalid mark command. Use: mark <index>");
+            TaskListException.invalidMark(ui);
             return;
         }
         int index = Integer.parseInt(description) - 1;
         if (index >= 0 && index < taskCount) {
             tasks.get(index).markAsNotDone();
-            storage.save(tasks, taskCount);
-            displayTasks();
+            storage.save(tasks, taskCount, ui);
+            ui.printTaskList(this);
         } else {
-            TaskListException.markTaskOutOfBounds(taskCount);
-        }
-    }
-
-    public void displayTasks() {
-        if (taskCount == 0) {
-            System.out.println(" Your list is empty!");
-        } else {
-            System.out.println(" Here are your tasks:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println("  " + (i + 1) + ". " + tasks.get(i).currentStatus());
-            }
+            TaskListException.markTaskOutOfBounds(ui, taskCount);
         }
     }
     
-    public void addToDo(String description, Storage storage) {
+    public void addToDo(String description, Storage storage, Ui ui) {
         if (description.trim().isEmpty()) {
-            TaskListException.todoInvalidCommand();
+            TaskListException.todoInvalidCommand(ui);
             return;
         }
         
         tasks.add(new ToDo(description));
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("  " + tasks.get(taskCount).currentStatus());
+        ui.printTaskAdded(this);
         taskCount++;
-        storage.save(tasks, taskCount);
-        System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
+        storage.save(tasks, taskCount, ui);
     }
     
-    public void addDeadline(String description, Storage storage) {
+    public void addDeadline(String description, Storage storage, Ui ui) {
         String[] parts = description.split(" /by ");
         if (parts.length == 1) {
-            TaskListException.deadlineInvalidCommand();
+            TaskListException.deadlineInvalidCommand(ui);
             return;
         }
         if (parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            TaskListException.deadlineInvalidCommand();
+            TaskListException.deadlineInvalidCommand(ui);
             return;
         }
         
         tasks.add(new Deadline(parts[0], parts[1]));
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("  " + tasks.get(taskCount).currentStatus());
+        ui.printTaskAdded(this);
         taskCount++;
-        storage.save(tasks, taskCount);
-        System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
-
+        storage.save(tasks, taskCount, ui);
     }
     
-    public void addEvent(String description, Storage storage) {
+    public void addEvent(String description, Storage storage, Ui ui) {
         String[] parts = description.split(" /from | /to ");
         if (parts.length < 3) {
-            TaskListException.eventInvalidCommand();
+            TaskListException.eventInvalidCommand(ui);
             return;
         }
         if (parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
-            TaskListException.eventInvalidCommand();
+            TaskListException.eventInvalidCommand(ui);
             return;
         }
         
         tasks.add(new Event(parts[0], parts[1], parts[2]));
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("  " + tasks.get(taskCount).currentStatus());
+        ui.printTaskAdded(this);
         taskCount++;
-        storage.save(tasks, taskCount);
-        System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
+        storage.save(tasks, taskCount, ui);
     }
 
-    public void deleteTask(String description, Storage storage) {
+    public void deleteTask(String description, Storage storage, Ui ui) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
-            System.out.println("  Invalid delete command. Use: delete <index>");
+            TaskListException.invalidDelete(ui);
             return;
         }
         int index = Integer.parseInt(description) - 1;
-        System.out.println(" Got it. I've removed this task:");
-        System.out.println("  " + tasks.get(index).currentStatus());
+        ui.printTaskDeleted(this, index);
         tasks.remove(index);
         taskCount--;
-        storage.save(tasks, taskCount);
-        System.out.printf(" Now you have %d tasks in the list.\n", taskCount);
+        storage.save(tasks, taskCount, ui);
     }
 
     public void add(Task task) {

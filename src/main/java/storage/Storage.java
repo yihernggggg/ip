@@ -12,6 +12,7 @@ import task.TaskList;
 import task.ToDo;
 import task.Deadline;
 import task.Event;
+import ui.Ui;
 
 public class Storage {
     private String filePath;
@@ -20,7 +21,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void save(ArrayList<Task> tasks, int taskCount) {
+    public void save(ArrayList<Task> tasks, int taskCount, Ui ui) {
         try {
             File data = new File(filePath);
             data.getParentFile().mkdirs();
@@ -30,11 +31,11 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("Error saving tasks: " + e.getMessage());
+            ui.printException("Error saving tasks: " + e.getMessage());
         }
     }
 
-    public TaskList load() {
+    public TaskList load(Ui ui) {
         TaskList tasks = new TaskList();
         try {
             File data = new File(filePath);
@@ -42,20 +43,20 @@ public class Storage {
             Scanner scanner = new Scanner(data);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                Task task = parseLine(line);
+                Task task = parseLine(line, ui);
                 if (task != null) {
                     tasks.add(task);
                 }
             }
-            System.out.println("  Load complete!");
+            ui.printLoadComplete();
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("  No tasks saved!");
+            ui.printNoTaskLoaded();
         }
         return tasks;
     }
 
-    private Task parseLine(String line) {
+    private Task parseLine(String line, Ui ui) {
         try {
             String[] parts = line.split(" \\| ");
             String type = parts[0];
@@ -82,7 +83,7 @@ public class Storage {
             }
             return task;
         } catch (Exception e) {
-            System.out.println("Corrupted line: " + line);
+            ui.printException("Corrupted line: " + line);
             return null;
         }
     }

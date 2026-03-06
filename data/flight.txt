@@ -1,3 +1,6 @@
-T | 0 | read
+T | 1 | read
 T | 0 | buy bread
 T | 0 | eat bread
+T | 1 | read again
+T | 0 | read again again
+T | 0 | read again again again

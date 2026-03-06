@@ -1,94 +1,62 @@
 package ui;
 
-import java.util.Scanner;
 import command.Command;
 import command.CommandException;
 import task.TaskList;
 import storage.Storage;
+import parser.Parser;
 
 public class Flight {
-    private static final String logo = "___________.__  .__       .__     __   \n" +
-            "\\_   _____/|  | |__| ____ |  |___/  |_ \n" +
-            " |    __)  |  | |  |/ ___\\|  |  \\   __\\\n" +
-            " |     \\   |  |_|  / /_/  >   Y  \\  |  \n" +
-            " \\___  /   |____/__\\___  /|___|  /__|  \n" +
-            "     \\/           /_____/      \\/      ";
-
-    private static final String line = "____________________________________________________________";
-
-    private static Command parseInput(String input) {
-        input = input.trim();
-        String[] parts = input.split(" ", 2);
-        String command = parts[0].toLowerCase();
-        String description = parts.length > 1 ? parts[1] : "";
-
-        return new Command(command, description);
-    }
-
-    private static void printGreeting() {
-        System.out.println(line + "\n" + " Hello! I'm Flight\n" +
-                " What can I do for you?\n" + line);
-    }
-
-    private static void printGoodbye() {
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println(line);
-    }
 
     public static void main(String[] args) {
 
-        printGreeting();
-
-        Scanner scanner = new Scanner(System.in);
-        TaskList tasks = new TaskList();
+        Ui ui = new Ui();
+        ui.printGreeting();
         Storage storage = new Storage("./data/flight.txt");
-        tasks = storage.load();
-        System.out.println(line);
+        TaskList tasks = storage.load(ui);
 
         while (true) {
-            String input = scanner.nextLine().trim();
-            System.out.println(line);
-            Command command = parseInput(input);
+            String input = ui.readInput();
+            Command command = Parser.parseInput(input);
 
             switch (command.commandType) {
             case "bye":
-                printGoodbye();
-                scanner.close();
+                ui.printGoodbye();
+                ui.closeUi();
                 return;
 
             case "list":
-                tasks.displayTasks();
+                ui.printTaskList(tasks);
                 break;
 
             case "mark":
-                tasks.markTask(command.description, storage);
+                tasks.markTask(command.description, storage, ui);
                 break;
 
             case "unmark":
-                    tasks.unmarkTask(command.description, storage);
+                tasks.unmarkTask(command.description, storage, ui);
                 break;
 
             case "todo":
-                tasks.addToDo(command.description, storage);
+                tasks.addToDo(command.description, storage, ui);
                 break;
 
             case "deadline":
-                tasks.addDeadline(command.description, storage);
+                tasks.addDeadline(command.description, storage, ui);
                 break;
 
             case "event":
-                tasks.addEvent(command.description, storage);
+                tasks.addEvent(command.description, storage, ui);
                 break;
 
             case "delete":
-                tasks.deleteTask(command.description, storage);
+                tasks.deleteTask(command.description, storage, ui);
                 break;
 
             default:
-                CommandException.invalidCommand();
+                CommandException.invalidCommand(ui);
                 break;
             }
-            System.out.println(line);
         }
 
     }
