@@ -8,24 +8,49 @@ import java.util.ArrayList;
 import storage.Storage;
 import ui.Ui;
 
-
+/**
+ * Represents a list of tasks and provides operations to add, delete,
+ * mark, unmark, and search tasks. Also handles saving changes to storage.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     private int taskCount;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
         taskCount = 0;
     }
 
+    /**
+     * Returns the current number of tasks in the list.
+     *
+     * @return The task count.
+     */
     public int getTaskCount() {
         return taskCount;
     }
 
+    /**
+     * Returns the task at the specified index.
+     *
+     * @param taskIndex The zero-based index of the task.
+     * @return The {@link Task} at the given index.
+     */
     public Task getTask(int taskIndex) {
         return tasks.get(taskIndex);
     }
 
+    /**
+     * Finds and displays all tasks that fall on the specified date.
+     * For {@link Deadline} tasks, checks if the deadline matches the date.
+     * For {@link Event} tasks, checks if the date falls within the event's date range (inclusive).
+     *
+     * @param description The date string in {@code yyyy-MM-dd} format.
+     * @param ui          The UI instance used to display results or error messages.
+     */
     public void findTasksOnDate(String description, Ui ui) {
         try {
             LocalDate date = LocalDate.parse(description.trim(),
@@ -51,6 +76,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds and displays all tasks whose descriptions contain the given keyword.
+     * The search is case-insensitive.
+     *
+     * @param keyword The keyword to search for.
+     * @param ui      The UI instance used to display results or error messages.
+     */
     public void findTasksWithKeyword(String keyword, Ui ui) {
         if (keyword.trim().isEmpty()) {
             TaskListException.withKeywordInvalidInput(ui);
@@ -65,6 +97,14 @@ public class TaskList {
         ui.printTasksWithKeyword(result);
     }
 
+    /**
+     * Marks the task at the specified index as done and saves the updated list.
+     * Validates that the description is a valid numeric index within bounds.
+     *
+     * @param description The one-based index of the task to mark, as a string.
+     * @param storage     The storage instance used to save the updated task list.
+     * @param ui          The UI instance used to display the updated list or error messages.
+     */
     public void markTask(String description, Storage storage, Ui ui) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
             TaskListException.invalidMark(ui);
@@ -80,6 +120,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks the task at the specified index as not done and saves the updated list.
+     * Validates that the description is a valid numeric index within bounds.
+     *
+     * @param description The one-based index of the task to unmark, as a string.
+     * @param storage     The storage instance used to save the updated task list.
+     * @param ui          The UI instance used to display the updated list or error messages.
+     */
     public void unmarkTask(String description, Storage storage, Ui ui) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
             TaskListException.invalidMark(ui);
@@ -95,6 +143,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new {@link ToDo} task to the list.
+     * Validates that the description is not empty.
+     *
+     * @param description The description of the ToDo task.
+     * @param storage     The storage instance used to save the updated task list.
+     * @param ui          The UI instance used to display confirmation or error messages.
+     */
     public void addToDo(String description, Storage storage, Ui ui) {
         if (description.trim().isEmpty()) {
             TaskListException.todoInvalidCommand(ui);
@@ -107,6 +163,15 @@ public class TaskList {
         storage.save(tasks, taskCount, ui);
     }
 
+    /**
+     * Adds a new {@link Deadline} task to the list.
+     * Parses the description to extract the task name and deadline date.
+     * Validates the format and date before adding.
+     *
+     * @param description The full description containing the task and {@code /by} date.
+     * @param storage     The storage instance used to save the updated task list.
+     * @param ui          The UI instance used to display confirmation or error messages.
+     */
     public void addDeadline(String description, Storage storage, Ui ui) {
         String[] parts = description.split(" /by ");
         if (parts.length == 1) {
@@ -125,9 +190,17 @@ public class TaskList {
         } catch (DateTimeParseException e) {
             TaskListException.invalidDateTimeInput(ui);
         }
-
     }
 
+    /**
+     * Adds a new {@link Event} task to the list.
+     * Parses the description to extract the task name, start date, and end date.
+     * Validates the format and dates before adding.
+     *
+     * @param description The full description containing the task, {@code /from}, and {@code /to} dates.
+     * @param storage     The storage instance used to save the updated task list.
+     * @param ui          The UI instance used to display confirmation or error messages.
+     */
     public void addEvent(String description, Storage storage, Ui ui) {
         String[] parts = description.split(" /from | /to ");
         if (parts.length < 3) {
@@ -146,9 +219,16 @@ public class TaskList {
         } catch (DateTimeParseException e) {
             TaskListException.invalidDateTimeInput(ui);
         }
-
     }
 
+    /**
+     * Deletes the task at the specified index from the list and saves the updated list.
+     * Validates that the description is a valid numeric index.
+     *
+     * @param description The one-based index of the task to delete, as a string.
+     * @param storage     The storage instance used to save the updated task list.
+     * @param ui          The UI instance used to display confirmation or error messages.
+     */
     public void deleteTask(String description, Storage storage, Ui ui) {
         if (description.trim().isEmpty() || !description.matches("\\d+")) {
             TaskListException.invalidDelete(ui);
@@ -161,6 +241,12 @@ public class TaskList {
         storage.save(tasks, taskCount, ui);
     }
 
+    /**
+     * Adds a pre-constructed task to the list.
+     * Used by {@link storage.Storage} when loading tasks from file.
+     *
+     * @param task The task to add.
+     */
     public void add(Task task) {
         tasks.add(task);
         taskCount++;
