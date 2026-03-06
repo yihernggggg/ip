@@ -1,0 +1,4 @@
+T | 0 | borrow book
+T | 1 | read book
+D | 0 | return book | 2025-02-08
+E | 0 | group project meeting | 2025-02-09 1600 | 2025-02-09 1700

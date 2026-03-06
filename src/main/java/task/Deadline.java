@@ -41,7 +41,7 @@ public class Deadline extends Task {
     @Override
     public String currentStatus() {
         String formattedBy = hasTime ? by.format(DISPLAY_WITH_TIME) : by.format(DISPLAY_DATE_ONLY);
-        return "[D]" + super.currentStatus() + " " + description + " (by: " + formattedBy + ")";
+        return "[D]" + super.currentStatus() + " " + "(by: " + formattedBy + ")";
     }
 
 }

@@ -4,11 +4,11 @@ todo borrow book
 todo read book
 deadline
 deadline return book
-deadline return book /by 8th Feb
+deadline return book /by 2025-02-08
 list
 event
-event group project meeting /from 9th Feb 4pm
-event group project meeting /from 9th Feb 4pm /to 5pm
+event group project meeting /from 2025-02-09 1600
+event group project meeting /from 2025-02-09 1600 /to 2025-02-09 1700
 list
 mark 7
 mark mark
@@ -17,4 +17,11 @@ mark 2
 list
 unmark 1
 list
+find book
+find xyz
+find
+on 2025-02-08
+on 2025-02-09
+on 2025-12-25
+on baddate
 bye
